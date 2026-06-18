@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1920, height=1080">
+<title>Hospitality Analytics - Home Page Mockup</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', sans-serif; background: #0D1B2A; width: 1920px; height: 1080px; overflow: hidden; }
+
+.header { background: #0D1B2A; padding: 20px 30px; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #C4A265; }
+.header .logo { width: 54px; height: 54px; background: #C4A265; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #0D1B2A; font-weight: bold; font-size: 14px; }
+.header .title-area { margin-left: 16px; flex: 1; }
+.header .title-area h1 { color: #fff; font-size: 26px; font-weight: 700; letter-spacing: 1px; }
+.header .title-area p { color: #B0BEC5; font-size: 13px; margin-top: 2px; }
+.header .refresh { color: #B0BEC5; font-size: 11px; text-align: right; }
+
+.nav-bar { background: #0F2540; padding: 12px 30px; display: flex; gap: 14px; }
+.nav-btn { padding: 12px 24px; border-radius: 8px; color: #fff; font-size: 12px; font-weight: 600; cursor: pointer; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); text-align: center; min-width: 150px; }
+.nav-btn:hover { background: rgba(196,162,101,0.25); border-color: #C4A265; }
+.nav-btn .icon { font-size: 18px; display: block; margin-bottom: 4px; }
+
+.content { padding: 24px 30px; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr 300px; grid-template-rows: auto auto auto; gap: 16px; }
+
+.kpi-card { background: #fff; border-radius: 12px; padding: 18px 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); border-top: 4px solid #C4A265; position: relative; }
+.kpi-card .value { font-family: Calibri, sans-serif; font-size: 26px; font-weight: 700; color: #1B365D; margin: 8px 0 4px; }
+.kpi-card .label { font-size: 10px; color: #6C757D; text-transform: uppercase; letter-spacing: 0.5px; }
+.kpi-card .trend { font-size: 11px; font-weight: 600; margin-top: 4px; }
+.kpi-card .trend.up { color: #2E8B57; }
+.kpi-card .trend.down { color: #DC3545; }
+
+.slicer-panel { grid-row: 1; background: rgba(255,255,255,0.05); border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); padding: 16px; }
+.slicer-panel h4 { color: #fff; font-size: 11px; margin-bottom: 10px; opacity: 0.7; }
+.slicer-item { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; padding: 8px 12px; color: #fff; font-size: 10px; margin-bottom: 8px; }
+
+.chart-area { grid-column: span 3; background: rgba(255,255,255,0.03); border-radius: 12px; border: 1px solid rgba(255,255,255,0.08); padding: 20px; min-height: 240px; }
+.chart-area h3 { color: #fff; font-size: 14px; font-weight: 600; margin-bottom: 14px; }
+
+.chart-revenue { position: relative; height: 180px; display: flex; align-items: flex-end; gap: 40px; padding: 0 30px; }
+.chart-bar { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.chart-bar .bar { width: 50px; background: linear-gradient(to top, #C4A265, rgba(196,162,101,0.4)); border-radius: 4px 4px 0 0; }
+.chart-bar .year-label { color: #B0BEC5; font-size: 10px; }
+.chart-bar .val-label { color: #fff; font-size: 10px; font-weight: 600; }
+
+.hotel-bars { height: 180px; display: flex; flex-direction: column; justify-content: space-between; }
+.hotel-row { display: flex; align-items: center; gap: 10px; }
+.hotel-row .name { color: #B0BEC5; font-size: 10px; width: 140px; text-align: right; }
+.hotel-row .bar { height: 18px; border-radius: 3px; background: linear-gradient(to right, #C4A265, #1B365D); }
+.hotel-row .val { color: #fff; font-size: 9px; margin-left: 6px; }
+
+.donut-area { display: flex; align-items: center; justify-content: center; height: 180px; }
+.donut { width: 140px; height: 140px; border-radius: 50%; background: conic-gradient(#C4A265 0deg 115deg, #8B0000 115deg 216deg, #1B365D 216deg 295deg, #17A2B8 295deg 360deg); position: relative; }
+.donut::after { content: ''; position: absolute; top: 30px; left: 30px; right: 30px; bottom: 30px; background: #0D1B2A; border-radius: 50%; }
+.donut-legend { margin-left: 20px; }
+.donut-legend div { color: #B0BEC5; font-size: 10px; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+.donut-legend .dot { width: 10px; height: 10px; border-radius: 2px; }
+
+.stats-panel { background: rgba(255,255,255,0.05); border-radius: 12px; border: 1px solid rgba(255,255,255,0.08); padding: 20px; }
+.stats-panel h3 { color: #fff; font-size: 14px; font-weight: 600; margin-bottom: 14px; }
+.stat-row { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; color: #B0BEC5; font-size: 11px; }
+.stat-row .emoji { font-size: 14px; }
+
+.footer { position: absolute; bottom: 0; left: 0; right: 0; padding: 8px 30px; display: flex; justify-content: space-between; color: #78909C; font-size: 9px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div style="display:flex; align-items:center;">
+    <div class="logo">TAJ</div>
+    <div class="title-area">
+      <h1>HOSPITALITY ANALYTICS DASHBOARD</h1>
+      <p>Performance Intelligence Suite — Taj Hotels India</p>
+    </div>
+  </div>
+  <div class="refresh">🕐 Last Refresh:<br>18-Jun-2026 06:00 AM</div>
+</div>
+
+<div class="nav-bar">
+  <div class="nav-btn"><span class="icon">📊</span>Executive Summary</div>
+  <div class="nav-btn"><span class="icon">📈</span>Revenue & Trends</div>
+  <div class="nav-btn"><span class="icon">🏨</span>Hotel Manager</div>
+  <div class="nav-btn"><span class="icon">🌐</span>Channel Analysis</div>
+  <div class="nav-btn"><span class="icon">⭐</span>Guest Satisfaction</div>
+  <div class="nav-btn"><span class="icon">👥</span>Member vs Non-Member</div>
+</div>
+
+<div class="content">
+  <!-- KPI Cards Row -->
+  <div class="kpi-card">
+    <div class="label">Total Revenue</div>
+    <div class="value">₹5.72B</div>
+    <div class="trend up">▲ 12.3% YoY</div>
+  </div>
+  <div class="kpi-card">
+    <div class="label">Successful Bookings</div>
+    <div class="value">90,091</div>
+    <div class="trend up">▲ 8.1% YoY</div>
+  </div>
+  <div class="kpi-card">
+    <div class="label">ADR (Avg Daily Rate)</div>
+    <div class="value">₹28,242</div>
+    <div class="trend up">▲ 5.2% YoY</div>
+  </div>
+  <div class="kpi-card">
+    <div class="label">Net Profit</div>
+    <div class="value">₹2.63B</div>
+    <div class="trend up">45.9% margin</div>
+  </div>
+  <div class="kpi-card">
+    <div class="label">Guest Satisfaction</div>
+    <div class="value" style="color:#2E8B57;">4.11</div>
+    <div class="trend" style="color:#2E8B57;">● Very Good</div>
+  </div>
+  <div class="slicer-panel">
+    <h4>FILTERS</h4>
+    <div class="slicer-item">Year ▾ All</div>
+    <div class="slicer-item">Hotel ▾ All</div>
+    <div class="slicer-item" style="background: rgba(196,162,101,0.3); border-color: #C4A265;">Category: All</div>
+  </div>
+
+  <!-- Charts Row 1 -->
+  <div class="chart-area">
+    <h3>Revenue Trend</h3>
+    <div class="chart-revenue">
+      <div class="chart-bar"><div class="val-label">₹1.1B</div><div class="bar" style="height:90px;"></div><div class="year-label">2021</div></div>
+      <div class="chart-bar"><div class="val-label">₹1.3B</div><div class="bar" style="height:110px;"></div><div class="year-label">2022</div></div>
+      <div class="chart-bar"><div class="val-label">₹1.4B</div><div class="bar" style="height:125px;"></div><div class="year-label">2023</div></div>
+      <div class="chart-bar"><div class="val-label">₹1.5B</div><div class="bar" style="height:145px;"></div><div class="year-label">2024</div></div>
+      <div class="chart-bar"><div class="val-label">₹0.4B</div><div class="bar" style="height:50px;"></div><div class="year-label">2025</div></div>
+    </div>
+  </div>
+  <div class="chart-area">
+    <h3>Revenue by Property</h3>
+    <div class="hotel-bars">
+      <div class="hotel-row"><span class="name">Taj Lake Palace</span><div class="bar" style="width:300px;"></div><span class="val">₹1,290M</span></div>
+      <div class="hotel-row"><span class="name">Taj Falaknuma</span><div class="bar" style="width:280px;"></div><span class="val">₹1,223M</span></div>
+      <div class="hotel-row"><span class="name">Taj Coromandel</span><div class="bar" style="width:195px;"></div><span class="val">₹845M</span></div>
+      <div class="hotel-row"><span class="name">Taj Exotica</span><div class="bar" style="width:188px;"></div><span class="val">₹814M</span></div>
+      <div class="hotel-row"><span class="name">Taj Mahal Palace</span><div class="bar" style="width:170px;"></div><span class="val">₹734M</span></div>
+      <div class="hotel-row"><span class="name">Taj West End</span><div class="bar" style="width:123px;"></div><span class="val">₹533M</span></div>
+      <div class="hotel-row"><span class="name">Taj Bengal</span><div class="bar" style="width:65px;"></div><span class="val">₹281M</span></div>
+    </div>
+  </div>
+
+  <!-- Charts Row 2 -->
+  <div class="chart-area">
+    <h3>Revenue by Category</h3>
+    <div class="donut-area">
+      <div class="donut"></div>
+      <div class="donut-legend">
+        <div><span class="dot" style="background:#C4A265;"></span> Luxury 32%</div>
+        <div><span class="dot" style="background:#8B0000;"></span> Heritage 28%</div>
+        <div><span class="dot" style="background:#1B365D;"></span> Business 22%</div>
+        <div><span class="dot" style="background:#17A2B8;"></span> Resort 18%</div>
+      </div>
+    </div>
+  </div>
+  <div class="stats-panel" style="grid-column: span 3;">
+    <h3>Quick Stats</h3>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
+      <div class="stat-row"><span class="emoji">🏨</span> 7 Hotel Properties</div>
+      <div class="stat-row"><span class="emoji">🌍</span> 10 Guest Countries</div>
+      <div class="stat-row"><span class="emoji">📅</span> Data: 2021 – 2025</div>
+      <div class="stat-row"><span class="emoji">👤</span> 200 Unique Guests</div>
+      <div class="stat-row"><span class="emoji">💳</span> 5 Payment Methods</div>
+      <div class="stat-row"><span class="emoji">📱</span> Mobile: 62% | Desktop: 38%</div>
+      <div class="stat-row"><span class="emoji">🏷️</span> Members: 55% of Bookings</div>
+      <div class="stat-row"><span class="emoji">⚡</span> 90.1% Payment Success</div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <span>Data refreshed: 18-Jun-2026 06:00 AM IST</span>
+  <span>© 2026 Taj Hotels India | Hospitality Analytics v1.0</span>
+  <span>Internal Use Only | Powered by Power BI</span>
+</div>
+
+</body>
+</html>

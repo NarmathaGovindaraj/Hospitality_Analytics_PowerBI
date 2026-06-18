@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Revenue & Trends - Mockup</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', sans-serif; background: #F5F6FA; width: 1920px; height: 1080px; overflow: hidden; }
+.nav { background: #1B365D; height: 44px; display: flex; align-items: center; padding: 0 20px; gap: 8px; }
+.nav-btn { padding: 6px 18px; border-radius: 4px; color: #fff; font-size: 11px; font-weight: 600; background: transparent; }
+.nav-btn.active { background: #C4A265; color: #0D1B2A; }
+.page-header { background: #fff; padding: 12px 20px; border-bottom: 1px solid #E0E0E0; }
+.page-header h1 { font-size: 20px; color: #1B365D; font-weight: 700; }
+.page-header p { font-size: 11px; color: #6C757D; }
+
+.main { padding: 14px 20px; display: grid; grid-template-columns: repeat(6, 1fr) 210px; grid-template-rows: 100px 300px 200px 190px; gap: 12px; }
+.kpi { background: #fff; border-radius: 8px; padding: 12px 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border-top: 4px solid #C4A265; }
+.kpi .label { font-size: 8px; color: #6C757D; text-transform: uppercase; }
+.kpi .value { font-family: Calibri; font-size: 22px; font-weight: 700; color: #1B365D; margin: 4px 0; }
+.kpi .sub { font-size: 9px; color: #2E8B57; font-weight: 600; }
+
+.slicers { grid-row: 1 / 3; background: #fff; border-radius: 8px; padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.slicers h4 { font-size: 9px; color: #1B365D; margin-bottom: 8px; }
+.sl-box { border: 1px solid #E0E0E0; border-radius: 4px; padding: 5px 8px; font-size: 9px; color: #333; margin-bottom: 6px; }
+.tile-row { display: flex; gap: 2px; margin-bottom: 8px; flex-wrap: wrap; }
+.tile { padding: 3px 6px; border-radius: 3px; font-size: 8px; background: #F5F6FA; border: 1px solid #E0E0E0; }
+.tile.sel { background: #C4A265; color: #fff; border-color: #C4A265; }
+
+.chart { background: #fff; border-radius: 8px; padding: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.chart h3 { font-size: 12px; color: #1B365D; font-weight: 600; margin-bottom: 10px; }
+.chart.full { grid-column: 1 / 7; }
+.chart.half { grid-column: span 3; }
+
+.area-chart { height: 230px; position: relative; background: linear-gradient(to bottom, rgba(196,162,101,0.15), rgba(196,162,101,0.02)); border-bottom: 1px solid #E8E8E8; border-left: 1px solid #E8E8E8; display: flex; align-items: flex-end; }
+.area-chart .bar-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; }
+.area-chart .bar-fill { width: 80%; background: linear-gradient(to top, rgba(27,54,93,0.8), rgba(27,54,93,0.3)); border-radius: 2px 2px 0 0; }
+.area-chart .x-lbl { font-size: 7px; color: #6C757D; margin-top: 4px; transform: rotate(-45deg); }
+
+.combo-chart { height: 140px; position: relative; border-bottom: 1px solid #E8E8E8; display: flex; align-items: flex-end; gap: 4px; padding: 0 10px; }
+.combo-col { flex: 1; display: flex; flex-direction: column; align-items: center; }
+.combo-col .col-bar { width: 70%; background: #1B365D; border-radius: 2px 2px 0 0; }
+.combo-col .lbl { font-size: 7px; color: #6C757D; margin-top: 3px; }
+
+.stacked-chart { height: 140px; display: flex; align-items: flex-end; gap: 20px; padding: 0 30px; border-bottom: 1px solid #E8E8E8; }
+.stack-col { display: flex; flex-direction: column; align-items: center; width: 80px; }
+.stack-seg { width: 100%; }
+.seg-std { background: #1B365D; }
+.seg-dlx { background: #C4A265; }
+.seg-ste { background: #17A2B8; }
+.stack-col .yr { font-size: 8px; color: #6C757D; margin-top: 4px; }
+
+.margin-line { height: 130px; position: relative; border-bottom: 1px solid #E8E8E8; padding: 10px; }
+.margin-line .target { position: absolute; top: 40%; left: 0; right: 0; border-top: 2px dashed #DC3545; }
+.margin-line .target-lbl { position: absolute; top: 37%; right: 10px; font-size: 8px; color: #DC3545; }
+.margin-line .line-path { width: 100%; height: 60%; background: linear-gradient(to right, rgba(46,139,87,0.2), rgba(46,139,87,0.2)); border-top: 3px solid #2E8B57; border-radius: 4px; margin-top: 10px; }
+
+.cat-bars { display: flex; flex-direction: column; gap: 12px; padding: 10px; }
+.cat-row { display: flex; align-items: center; gap: 8px; }
+.cat-row .nm { font-size: 9px; width: 70px; text-align: right; color: #333; }
+.cat-row .br { height: 20px; border-radius: 3px; }
+.cat-row .vl { font-size: 9px; font-weight: 700; margin-left: 4px; }
+
+.footer { position: absolute; bottom: 0; left: 0; right: 0; background: #fff; border-top: 1px solid #E0E0E0; padding: 6px 20px; display: flex; justify-content: space-between; font-size: 9px; color: #78909C; }
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <div class="nav-btn">🏠 Home</div>
+  <div class="nav-btn">📊 Executive</div>
+  <div class="nav-btn active">📈 Revenue & Trends</div>
+  <div class="nav-btn">🏨 Manager</div>
+  <div class="nav-btn">🌐 Channels</div>
+  <div class="nav-btn">⭐ Satisfaction</div>
+  <div class="nav-btn">👥 Membership</div>
+</div>
+
+<div class="page-header">
+  <h1>Revenue & Trends (2021–2025)</h1>
+  <p>Financial Performance Analysis</p>
+</div>
+
+<div class="main">
+  <div class="kpi"><div class="label">YoY Growth</div><div class="value" style="color:#2E8B57;">+12.3%</div><div class="sub">▲ Revenue</div></div>
+  <div class="kpi"><div class="label">Revenue YTD</div><div class="value">₹5.72B</div><div class="sub">Full period</div></div>
+  <div class="kpi"><div class="label">Revenue QTD</div><div class="value">₹1.4B</div><div class="sub">Current Qtr</div></div>
+  <div class="kpi"><div class="label">Revenue MTD</div><div class="value">₹780M</div><div class="sub">Current Month</div></div>
+  <div class="kpi"><div class="label">Profit Margin</div><div class="value" style="color:#2E8B57;">45.9%</div><div class="sub">Above target</div></div>
+  <div class="kpi"><div class="label">ADR</div><div class="value">₹28,242</div><div class="sub">Per room-night</div></div>
+
+  <div class="slicers">
+    <h4>FILTERS</h4>
+    <div class="sl-box">Year ▾ All</div>
+    <h4>ROOM TYPE</h4>
+    <div class="tile-row"><span class="tile sel">All</span><span class="tile">Standard</span><span class="tile">Deluxe</span><span class="tile">Suite</span></div>
+    <h4>CATEGORY</h4>
+    <div class="tile-row"><span class="tile sel">All</span><span class="tile">Lux</span><span class="tile">Her</span><span class="tile">Bus</span><span class="tile">Res</span></div>
+    <h4>QUARTER</h4>
+    <div class="tile-row"><span class="tile sel">All</span><span class="tile">Q1</span><span class="tile">Q2</span><span class="tile">Q3</span><span class="tile">Q4</span></div>
+  </div>
+
+  <div class="chart full">
+    <h3>Monthly Revenue Trend (Drill: Year → Quarter → Month)</h3>
+    <div class="area-chart">
+      <div class="bar-item"><div class="bar-fill" style="height:55%;"></div><div class="x-lbl">Q1'21</div></div>
+      <div class="bar-item"><div class="bar-fill" style="height:62%;"></div><div class="x-lbl">Q2'21</div></div>
+      <div class="bar-item"><div class="bar-fill" style="height:58%;"></div><div class="x-lbl">Q3'21</div></div>
+      <div class="bar-item"><div class="bar-fill" style="height:65%;"></div><div class="x-lbl">Q4'21</div></div>
+      <div class="bar-item"><div class="bar-fill" style="height:60%;"></div><div class="x-lbl">Q1'22</div></div>
+      <div class="bar-item"><div class="bar-fill" style="height:68%;"></div><div class="x-lbl">Q2'22</div></div>
+      <div class="bar-item"><div class="bar-fill" style="height:72%;"></div><div class="x-lbl">Q3'22</div></div>
+      <div class="bar-item"><div class="bar-fill" style="height:70%;"></div><div class="x-lbl">Q4'22</div></div>
+      <div class="bar-item"><div class="bar-fill" style="height:74%;"></div><div class="x-lbl">Q1'23</div></div>
+      <div class="bar-item"><div class="bar-fill" style="height:78%;"></div><div class="x-lbl">Q2'23</div></div>
+      <div class="bar-item"><div class="bar-fill" style="height:76%;"></div><div class="x-lbl">Q3'23</div></div>
+      <div class="bar-item"><div class="bar-fill" style="height:82%;"></div><div class="x-lbl">Q4'23</div></div>
+      <div class="bar-item"><div class="bar-fill" style="height:80%;"></div><div class="x-lbl">Q1'24</div></div>
+      <div class="bar-item"><div class="bar-fill" style="height:85%;"></div><div class="x-lbl">Q2'24</div></div>
+      <div class="bar-item"><div class="bar-fill" style="height:88%;"></div><div class="x-lbl">Q3'24</div></div>
+      <div class="bar-item"><div class="bar-fill" style="height:92%;"></div><div class="x-lbl">Q4'24</div></div>
+    </div>
+  </div>
+
+  <div class="chart half">
+    <h3>Revenue vs Cost Analysis</h3>
+    <div class="combo-chart">
+      <div class="combo-col"><div class="col-bar" style="height:80%;"></div><div class="lbl">Q1'23</div></div>
+      <div class="combo-col"><div class="col-bar" style="height:85%;"></div><div class="lbl">Q2'23</div></div>
+      <div class="combo-col"><div class="col-bar" style="height:82%;"></div><div class="lbl">Q3'23</div></div>
+      <div class="combo-col"><div class="col-bar" style="height:90%;"></div><div class="lbl">Q4'23</div></div>
+      <div class="combo-col"><div class="col-bar" style="height:88%;"></div><div class="lbl">Q1'24</div></div>
+      <div class="combo-col"><div class="col-bar" style="height:92%;"></div><div class="lbl">Q2'24</div></div>
+      <div class="combo-col"><div class="col-bar" style="height:95%;"></div><div class="lbl">Q3'24</div></div>
+      <div class="combo-col"><div class="col-bar" style="height:98%;"></div><div class="lbl">Q4'24</div></div>
+    </div>
+    <div style="display:flex;gap:12px;margin-top:8px;font-size:8px;">
+      <span style="color:#1B365D;">■ Revenue</span>
+      <span style="color:#DC3545;">┄ Cost</span>
+      <span style="color:#2E8B57;">─ Net Profit</span>
+    </div>
+  </div>
+
+  <div class="chart half">
+    <h3>Revenue by Room Type</h3>
+    <div class="stacked-chart">
+      <div class="stack-col"><div class="seg-ste stack-seg" style="height:20px;"></div><div class="seg-dlx stack-seg" style="height:35px;"></div><div class="seg-std stack-seg" style="height:50px;"></div><div class="yr">2021</div></div>
+      <div class="stack-col"><div class="seg-ste stack-seg" style="height:22px;"></div><div class="seg-dlx stack-seg" style="height:38px;"></div><div class="seg-std stack-seg" style="height:55px;"></div><div class="yr">2022</div></div>
+      <div class="stack-col"><div class="seg-ste stack-seg" style="height:25px;"></div><div class="seg-dlx stack-seg" style="height:40px;"></div><div class="seg-std stack-seg" style="height:58px;"></div><div class="yr">2023</div></div>
+      <div class="stack-col"><div class="seg-ste stack-seg" style="height:28px;"></div><div class="seg-dlx stack-seg" style="height:44px;"></div><div class="seg-std stack-seg" style="height:62px;"></div><div class="yr">2024</div></div>
+    </div>
+    <div style="display:flex;gap:12px;margin-top:8px;font-size:8px;">
+      <span style="color:#1B365D;">■ Standard</span>
+      <span style="color:#C4A265;">■ Deluxe</span>
+      <span style="color:#17A2B8;">■ Suite</span>
+    </div>
+  </div>
+
+  <div class="chart half">
+    <h3>Profit Margin % Trend</h3>
+    <div class="margin-line">
+      <div class="target"></div>
+      <div class="target-lbl">Target: 40%</div>
+      <div class="line-path"></div>
+    </div>
+  </div>
+
+  <div class="chart half">
+    <h3>Revenue by Category</h3>
+    <div class="cat-bars">
+      <div class="cat-row"><span class="nm">Luxury</span><div class="br" style="width:280px; background:#C4A265;"></div><span class="vl" style="color:#C4A265;">₹1.58B</span></div>
+      <div class="cat-row"><span class="nm">Heritage</span><div class="br" style="width:260px; background:#8B0000;"></div><span class="vl" style="color:#8B0000;">₹1.29B</span></div>
+      <div class="cat-row"><span class="nm">Business</span><div class="br" style="width:160px; background:#1B365D;"></div><span class="vl" style="color:#1B365D;">₹0.81B</span></div>
+      <div class="cat-row"><span class="nm">Resort</span><div class="br" style="width:170px; background:#17A2B8;"></div><span class="vl" style="color:#17A2B8;">₹0.81B</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <span>Data refreshed: 18-Jun-2026 06:00 AM IST</span>
+  <span>© 2026 Taj Hotels India</span>
+  <span>Internal Use Only</span>
+</div>
+</body>
+</html>

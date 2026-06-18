@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Executive Summary - Mockup</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', sans-serif; background: #F5F6FA; width: 1920px; height: 1080px; overflow: hidden; }
+
+.nav { background: #1B365D; height: 44px; display: flex; align-items: center; padding: 0 20px; gap: 8px; }
+.nav-btn { padding: 6px 18px; border-radius: 4px; color: #fff; font-size: 11px; font-weight: 600; background: transparent; }
+.nav-btn.active { background: #C4A265; color: #0D1B2A; }
+
+.page-header { background: #fff; padding: 12px 20px; border-bottom: 1px solid #E0E0E0; }
+.page-header h1 { font-size: 20px; color: #1B365D; font-weight: 700; }
+.page-header p { font-size: 11px; color: #6C757D; }
+
+.main { padding: 16px 20px; display: grid; grid-template-columns: repeat(5, 1fr) 220px; grid-template-rows: 115px 370px 350px; gap: 14px; }
+
+.kpi { background: #fff; border-radius: 8px; padding: 14px 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border-top: 4px solid #C4A265; }
+.kpi .label { font-size: 9px; color: #6C757D; text-transform: uppercase; letter-spacing: 0.3px; }
+.kpi .value { font-family: Calibri, sans-serif; font-size: 24px; font-weight: 700; color: #1B365D; margin: 6px 0 3px; }
+.kpi .sub { font-size: 10px; color: #2E8B57; font-weight: 600; }
+.kpi .sub.neg { color: #DC3545; }
+
+.slicers { background: #fff; border-radius: 8px; padding: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); grid-row: 1 / 3; }
+.slicers h4 { font-size: 10px; color: #1B365D; margin-bottom: 10px; font-weight: 700; }
+.slicer-box { border: 1px solid #E0E0E0; border-radius: 4px; padding: 6px 10px; font-size: 10px; color: #333; margin-bottom: 8px; }
+.tile-row { display: flex; gap: 3px; margin-bottom: 8px; }
+.tile { padding: 4px 8px; border-radius: 3px; font-size: 9px; background: #F5F6FA; color: #333; border: 1px solid #E0E0E0; }
+.tile.active { background: #C4A265; color: #fff; border-color: #C4A265; }
+
+.chart { background: #fff; border-radius: 8px; padding: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.chart h3 { font-size: 13px; color: #1B365D; font-weight: 600; margin-bottom: 12px; }
+.chart.wide { grid-column: span 3; }
+
+.line-chart { height: 280px; display: flex; align-items: flex-end; justify-content: space-around; padding: 0 20px; position: relative; border-bottom: 1px solid #E8E8E8; }
+.line-chart::before { content: ''; position: absolute; top: 0; left: 60px; right: 20px; bottom: 0; background: repeating-linear-gradient(0deg, transparent, transparent 69px, #F0F0F0 69px, #F0F0F0 70px); }
+.data-point { display: flex; flex-direction: column; align-items: center; z-index: 1; }
+.data-point .dot { width: 10px; height: 10px; background: #1B365D; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+.data-point .col { width: 60px; background: linear-gradient(to top, rgba(196,162,101,0.1), rgba(196,162,101,0.3)); border-radius: 3px 3px 0 0; margin-bottom: 4px; }
+.data-point .lbl { font-size: 9px; color: #6C757D; margin-top: 6px; }
+.data-point .val { font-size: 9px; color: #1B365D; font-weight: 600; }
+
+.h-bars { display: flex; flex-direction: column; gap: 10px; height: 280px; justify-content: center; }
+.h-bar-row { display: flex; align-items: center; gap: 8px; }
+.h-bar-row .name { font-size: 10px; color: #333; width: 130px; text-align: right; }
+.h-bar-row .bar { height: 22px; border-radius: 3px; background: linear-gradient(to right, #1B365D, #3a6b9f); }
+.h-bar-row .val { font-size: 9px; color: #1B365D; font-weight: 700; }
+
+.donut-container { display: flex; align-items: center; justify-content: center; height: 260px; gap: 20px; }
+.donut-ring { width: 160px; height: 160px; border-radius: 50%; position: relative; }
+.donut-ring::after { content: ''; position: absolute; top: 35px; left: 35px; right: 35px; bottom: 35px; background: #fff; border-radius: 50%; }
+.donut-cat { background: conic-gradient(#C4A265 0deg 115deg, #8B0000 115deg 216deg, #1B365D 216deg 295deg, #17A2B8 295deg 360deg); }
+.donut-ch { background: conic-gradient(#1B365D 0deg 162deg, #17A2B8 162deg 253deg, #C4A265 253deg 314deg, #6C757D 314deg 360deg); }
+.legend { font-size: 10px; color: #333; }
+.legend div { margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+.legend .dot { width: 10px; height: 10px; border-radius: 2px; }
+
+.footer { position: absolute; bottom: 0; left: 0; right: 0; background: #fff; border-top: 1px solid #E0E0E0; padding: 6px 20px; display: flex; justify-content: space-between; font-size: 9px; color: #78909C; }
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <div class="nav-btn">🏠 Home</div>
+  <div class="nav-btn active">📊 Executive Summary</div>
+  <div class="nav-btn">📈 Revenue</div>
+  <div class="nav-btn">🏨 Manager</div>
+  <div class="nav-btn">🌐 Channels</div>
+  <div class="nav-btn">⭐ Satisfaction</div>
+  <div class="nav-btn">👥 Membership</div>
+</div>
+
+<div class="page-header">
+  <h1>Executive Summary</h1>
+  <p>Portfolio Performance Overview</p>
+</div>
+
+<div class="main">
+  <div class="kpi"><div class="label">Total Revenue</div><div class="value">₹5.72B</div><div class="sub">▲ 12.3% YoY</div></div>
+  <div class="kpi"><div class="label">Successful Bookings</div><div class="value">90,091</div><div class="sub">▲ 8.1% YoY</div></div>
+  <div class="kpi"><div class="label">ADR</div><div class="value">₹28,242</div><div class="sub">Per room-night</div></div>
+  <div class="kpi"><div class="label">Net Profit</div><div class="value">₹2.63B</div><div class="sub">45.9% margin</div></div>
+  <div class="kpi"><div class="label">Guest Satisfaction</div><div class="value" style="color:#2E8B57;">4.11</div><div class="sub" style="color:#2E8B57;">Very Good</div></div>
+
+  <div class="slicers">
+    <h4>FILTERS</h4>
+    <div class="slicer-box">Year ▾ All Years</div>
+    <div class="slicer-box">Hotel ▾ All Hotels</div>
+    <div class="slicer-box">City ▾ All Cities</div>
+    <h4 style="margin-top:12px;">CATEGORY</h4>
+    <div class="tile-row">
+      <span class="tile active">All</span>
+      <span class="tile">Luxury</span>
+      <span class="tile">Heritage</span>
+      <span class="tile">Business</span>
+      <span class="tile">Resort</span>
+    </div>
+    <h4>QUARTER</h4>
+    <div class="tile-row">
+      <span class="tile active">All</span>
+      <span class="tile">Q1</span>
+      <span class="tile">Q2</span>
+      <span class="tile">Q3</span>
+      <span class="tile">Q4</span>
+    </div>
+  </div>
+
+  <!-- Revenue by Year -->
+  <div class="chart wide">
+    <h3>Revenue by Year</h3>
+    <div class="line-chart">
+      <div class="data-point"><div class="val">₹1.10B</div><div class="col" style="height:130px;"></div><div class="dot"></div><div class="lbl">2021</div></div>
+      <div class="data-point"><div class="val">₹1.28B</div><div class="col" style="height:155px;"></div><div class="dot"></div><div class="lbl">2022</div></div>
+      <div class="data-point"><div class="val">₹1.42B</div><div class="col" style="height:175px;"></div><div class="dot"></div><div class="lbl">2023</div></div>
+      <div class="data-point"><div class="val">₹1.53B</div><div class="col" style="height:195px;"></div><div class="dot"></div><div class="lbl">2024</div></div>
+      <div class="data-point"><div class="val">₹0.39B</div><div class="col" style="height:60px;"></div><div class="dot"></div><div class="lbl">2025*</div></div>
+    </div>
+  </div>
+
+  <!-- Revenue by Hotel -->
+  <div class="chart" style="grid-column: span 3;">
+    <h3>Revenue by Property</h3>
+    <div class="h-bars">
+      <div class="h-bar-row"><span class="name">Taj Lake Palace</span><div class="bar" style="width:320px;"></div><span class="val">₹1,290M</span></div>
+      <div class="h-bar-row"><span class="name">Taj Falaknuma Palace</span><div class="bar" style="width:300px;"></div><span class="val">₹1,223M</span></div>
+      <div class="h-bar-row"><span class="name">Taj Coromandel</span><div class="bar" style="width:210px;"></div><span class="val">₹845M</span></div>
+      <div class="h-bar-row"><span class="name">Taj Exotica</span><div class="bar" style="width:200px;"></div><span class="val">₹814M</span></div>
+      <div class="h-bar-row"><span class="name">Taj Mahal Palace</span><div class="bar" style="width:180px;"></div><span class="val">₹734M</span></div>
+      <div class="h-bar-row"><span class="name">Taj West End</span><div class="bar" style="width:130px;"></div><span class="val">₹533M</span></div>
+      <div class="h-bar-row"><span class="name">Taj Bengal</span><div class="bar" style="width:70px;"></div><span class="val">₹281M</span></div>
+    </div>
+  </div>
+
+  <!-- Revenue by Category -->
+  <div class="chart wide">
+    <h3>Revenue by Category</h3>
+    <div class="donut-container">
+      <div class="donut-ring donut-cat"></div>
+      <div class="legend">
+        <div><span class="dot" style="background:#C4A265;"></span> Luxury — 32%</div>
+        <div><span class="dot" style="background:#8B0000;"></span> Heritage — 28%</div>
+        <div><span class="dot" style="background:#1B365D;"></span> Business — 22%</div>
+        <div><span class="dot" style="background:#17A2B8;"></span> Resort — 18%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Channel Distribution -->
+  <div class="chart" style="grid-column: span 3;">
+    <h3>Booking Channel Distribution</h3>
+    <div class="donut-container">
+      <div class="donut-ring donut-ch"></div>
+      <div class="legend">
+        <div><span class="dot" style="background:#1B365D;"></span> Website — 45%</div>
+        <div><span class="dot" style="background:#17A2B8;"></span> App — 25%</div>
+        <div><span class="dot" style="background:#C4A265;"></span> Agent — 17%</div>
+        <div><span class="dot" style="background:#6C757D;"></span> ThirdParty — 13%</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <span>Data refreshed: 18-Jun-2026 06:00 AM IST</span>
+  <span>© 2026 Taj Hotels India | Hospitality Analytics v1.0</span>
+  <span>Internal Use Only</span>
+</div>
+
+</body>
+</html>
